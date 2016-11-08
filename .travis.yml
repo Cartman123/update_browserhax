@@ -1,12 +1,13 @@
 language: c
 sudo: false
-python:
-- '3.5'
+
 
 addons:
   apt:
+    sources:
+      - debian-sid
     packages:
-    - gcc-arm-none-eabi
+      - gcc-arm-none-eabi
 
 install:
 - mkdir -p webroot
