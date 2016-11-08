@@ -1,6 +1,5 @@
 # Install/Update browserhax's website
 
-
 This is a simple fork from the original [yellows8's update browserhax script](https://github.com/yellows8/browserhax_site).
 
 It automatically downloads the latest browserhax_site, replaces the hardcoded urls, copies the browserhax_cfg.php to the webroot folder and generates a valid qrcode.
@@ -10,6 +9,11 @@ A GNU/Linux machine (tested on Ubuntu) with the following packages installed:
 - git
 - qrencode *(automatic qrcode generation)*
 - gcc-arm-none-eabi *(needed to make the 3ds_browserhax_common project and generate the 3ds_arm11code.bin)*
+
+## Download
+
+You can download this script by either cloning this repo or simply:
+`curl -o update_browserhax.sh "https://raw.githubusercontent.com/Cartman123/update_browserhax/master/update_browserhax.sh" && chmod +x update_browserhax.sh`
 
 ## Usage
 
