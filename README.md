@@ -6,10 +6,12 @@ This is a simple fork from the original [yellows8's update browserhax script](ht
 
 It automatically downloads the latest browserhax_site, replaces the hardcoded urls, copies the browserhax_cfg.php to the webroot folder and generates a valid qrcode (using the google char api).
 
-This script has 2 versions:
+This script has 3 versions:
 - **`update_browserhax.sh`** is a simple improvement over the original that fixes hardcoded paths and auto copies the `browserhax_cfg.php` to the webroot directory and you must configure it yourself, aswell as compiling the 3ds_browserhax_common repo yourself
 - **`update_browserhax_auto.sh`** automatically sets everything up, compiles 3ds_browserhax_common, and uses a predefined configuration file with auto id generation. No extra configuration needed
 - **`update_browserhax_auto_static.sh`**, same as the auto version, but generates static files (no symlinking), allows copying. Access http://example.com/generateqrcode.php to generate the qr code for the page.
+
+You can find the latest static release [here](https://github.com/Cartman123/update_browserhax/releases/latest). Extract to your webroot and access http://yoursite.com/generateqrcode.php to generate the missing qrcode. If you ever need to regenerate it, just delete the qrcode and open the link again.
 
 ## Requirements
 A GNU/Linux machine (tested on Ubuntu) with the following packages installed:
