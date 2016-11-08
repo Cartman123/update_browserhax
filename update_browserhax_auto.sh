@@ -20,6 +20,26 @@ websitebase=$3
 
 newid=$(date +%s | sha256sum | base64 | head -c 32)
 
+
+if [[ -n $(find $repobase -mindepth 1 -maxdepth 1 -type d ! -name browserhax_site ! -name 3ds_browserhax_common ! -name browserhax_fright ! -name 3ds_webkithax) ]]; then
+	echo "WARNING: It's recommended to create an empty directory specifically for the repos."
+	read -p "Continue anyway (y/N)? " choice
+	case "$choice" in
+		y|Y ) ;;
+		* ) exit 1;;
+	esac
+fi
+
+if [[ $repobase != /* ]]; then
+	echo "WARNING: You are not using the full path for the repository base. This will probably break the symlinks and not work."
+	if [ -z "$repobase" ]; then echo "Example: $(pwd)/$repobase"; else echo "Example: $(pwd)"; fi
+	read -p "Continue anyway (y/N)? " choice
+	case "$choice" in
+		y|Y ) ;;
+		* ) exit 1;;
+	esac
+fi
+
 function get_repo
 {
 	echo "Processing $1..."
@@ -45,19 +65,27 @@ function copy_file
 	fi
 }
 
+function replace_hardcoded
+{
+	find $repobase/$1 -type f -exec sed -i "s#$2#$3#g" {} \;
+}
+
+hardcodedpath="/home/yellows8/browserhax"
+
 get_repo browserhax_site
 get_repo 3ds_browserhax_common
 get_repo browserhax_fright
 get_repo 3ds_webkithax
 
+replace_hardcoded browserhax_site $hardcodedpath $webroot
+replace_hardcoded 3ds_browserhax_common $hardcodedpath $webroot
+replace_hardcoded browserhax_fright $hardcodedpath $webroot
+replace_hardcoded 3ds_webkithax $hardcodedpath $webroot
+
 create_symlink browserhax_site/3dsbrowserhax.php 3dsbrowserhax.php
 create_symlink browserhax_site/3dsbrowserhax.php 3dsbrowserhax_auto.php
 
-curl -o $webroot/3dsbrowserhax_auto_qrcode.png -G -s "https://chart.googleapis.com/chart?cht=qr&chs=150x150"  --data-urlencode "chl=$websitebase/3dsbrowserhax_auto.php"
-
 create_symlink 3ds_browserhax_common/3dsbrowserhax_common.php 3dsbrowserhax_common.php
-
-find $repobase/ -type f -exec sed -i "s#/home/yellows8/browserhax#$webroot#g" {} \;
 
 create_symlink browserhax_fright/browserhax_fright.php browserhax_fright.php
 create_symlink browserhax_fright/browserhax_fright_tx3g.php browserhax_fright_tx3g.php
@@ -69,6 +97,9 @@ create_symlink browserhax_fright/frighthax_header_tx3g.mp4 frighthax_header_tx3g
 
 create_symlink 3ds_webkithax/3dsbrowserhax_webkit_r106972.php spider28hax.php
 create_symlink 3ds_webkithax/spider31hax.php spider31hax.php
+
+
+curl -o $webroot/3dsbrowserhax_auto_qrcode.png -G -s "https://chart.googleapis.com/chart?cht=qr&chs=150x150"  --data-urlencode "chl=$websitebase/3dsbrowserhax_auto.php"
 
 if [ ! -e "$webroot/browserhax_cfg.php" ]; then
 	curl -s -o $webroot/browserhax_cfg.php https://raw.githubusercontent.com/Cartman123/update_browserhax/master/browserhax_cfg.php

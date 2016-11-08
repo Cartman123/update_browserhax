@@ -20,6 +20,27 @@ websitebase=$3
 
 newid=$(date +%s | sha256sum | base64 | head -c 32)
 
+
+if [[ -n $(find $repobase -mindepth 1 -maxdepth 1 -type d ! -name browserhax_site ! -name 3ds_browserhax_common ! -name browserhax_fright ! -name 3ds_webkithax) ]]; then
+	echo "WARNING: It's recommended to create an empty directory specifically for the repos."
+	read -p "Continue anyway (y/N)? " choice
+	case "$choice" in
+		y|Y ) ;;
+		* ) exit 1;;
+	esac
+fi
+
+if [[ $repobase != /* ]]; then
+	echo "WARNING: You are not using the full path for the repository base. This will probably break the symlinks and not work."
+	if [ -z "$repobase" ]; then echo "Example: $(pwd)/$repobase"; else echo "Example: $(pwd)"; fi
+	read -p "Continue anyway (y/N)? " choice
+	case "$choice" in
+		y|Y ) ;;
+		* ) exit 1;;
+	esac
+fi
+
+
 function get_repo
 {
 	echo "Processing $1..."
@@ -55,18 +76,25 @@ function batch_copy_force
 	find $repobase/$1 -maxdepth 1 -type f -name "$2" -exec cp -pf "{}" "$webroot/" \;
 }
 
+function replace_hardcoded
+{
+	find $repobase/$1 -type f -exec sed -i "s#$2#$3#g" {} \;
+}
+
+hardcodedpath="/home/yellows8/browserhax"
+
 get_repo browserhax_site
 get_repo 3ds_browserhax_common
 get_repo browserhax_fright
 get_repo 3ds_webkithax
 
+replace_hardcoded browserhax_site $hardcodedpath $webroot
+replace_hardcoded 3ds_browserhax_common $hardcodedpath $webroot
+replace_hardcoded browserhax_fright $hardcodedpath $webroot
+replace_hardcoded 3ds_webkithax $hardcodedpath $webroot
+
 copy_file_force browserhax_site/3dsbrowserhax.php 3dsbrowserhax.php
 copy_file_force browserhax_site/3dsbrowserhax.php 3dsbrowserhax_auto.php
-
-if [ ! -z "$websitebase" ]; then
-	curl -o $webroot/3dsbrowserhax_auto_qrcode.png -G -s "https://chart.googleapis.com/chart?cht=qr&chs=150x150"  --data-urlencode "chl=$websitebase/3dsbrowserhax_auto.php"
-fi
-
 
 batch_copy_force 3ds_browserhax_common/ "3dsbrowserhax*\.php"
 
@@ -78,8 +106,9 @@ batch_copy_force browserhax_fright/ "*\.mp4"
 
 batch_copy_force 3ds_webkithax/ "*\.php"
 
-find $webroot/ -type f -exec sed -i "s#/home/yellows8/browserhax/##g" {} \;
-
+if [ ! -z "$websitebase" ]; then
+	curl -o $webroot/3dsbrowserhax_auto_qrcode.png -G -s "https://chart.googleapis.com/chart?cht=qr&chs=150x150"  --data-urlencode "chl=$websitebase/3dsbrowserhax_auto.php"
+fi
 
 
 if [ ! -e "$webroot/browserhax_cfg.php" ]; then
