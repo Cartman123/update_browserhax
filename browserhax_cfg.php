@@ -47,7 +47,7 @@ function browserhaxcfg_parsebinparam()
 function browserhaxcfg_getbinpath_val3()
 {
 	//Return a filepath string which will be loaded by 3dsbrowserhax_common.php itself, when a binary is requested via the "getbin" URL param with the $getbinselect variable set to value 3 (see browserhaxcfg_parsebinparam). This should be the built 3ds_arm11code.bin from running 'make'.
-  
+
 	//this is the path for your 3ds_arm11code.bin
 	//in my case, it is on webroot_dir/payloads/3ds_arm11code.bin
 	return realpath(dirname(__FILE__)) . "/payloads/3ds_arm11code.bin";
@@ -56,7 +56,7 @@ function browserhaxcfg_getbinpath_val3()
 function browserhaxcfg_getbinpath_ropchain2()
 {
 	//Return a filepath string which will be loaded by 3dsbrowserhax_common.php itself, for loading arm11code which will be embedded in the ROP when $arm11code_loadfromsd==0. With the normal configuration this isn't used.
-  
+
 	//this is the path for your 3ds_arm11code.bin
 	//in my case, it is on webroot_dir/payloads/3ds_arm11code.bin
 	return realpath(dirname(__FILE__)) . "/payloads/3ds_arm11code.bin";
