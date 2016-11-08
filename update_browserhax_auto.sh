@@ -53,7 +53,7 @@ get_repo 3ds_webkithax
 create_symlink browserhax_site/3dsbrowserhax.php 3dsbrowserhax.php
 create_symlink browserhax_site/3dsbrowserhax.php 3dsbrowserhax_auto.php
 #create_symlink browserhax_site/3dsbrowserhax_auto_qrcode.png 3dsbrowserhax_auto_qrcode.png
-command -v qrencode >/dev/null 2>&1 || { echo >&2 "qrencode not installed. Not generating qr code."; } && { qrencode -o $webroot/3dsbrowserhax_auto_qrcode.png "$websitebase/browserhax_auto.php"; }
+command -v qrencode >/dev/null 2>&1 || { echo >&2 "qrencode not installed. Not generating qr code."; } && { qrencode -o $webroot/3dsbrowserhax_auto_qrcode.png "$websitebase/3dsbrowserhax_auto.php"; }
 
 create_symlink 3ds_browserhax_common/3dsbrowserhax_common.php 3dsbrowserhax_common.php
 copy_file 3ds_browserhax_common/browserhax_cfg_example.php browserhax_cfg.php
