@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/Cartman123/update_browserhax.svg?branch=master)](https://travis-ci.org/Cartman123/update_browserhax)
+
 # Install/Update browserhax's website
 
 This is a simple fork from the original [yellows8's update browserhax script](https://github.com/yellows8/browserhax_site).
@@ -7,6 +9,7 @@ It automatically downloads the latest browserhax_site, replaces the hardcoded ur
 This script has 2 versions:
 - **`update_browserhax.sh`** is a simple improvement over the original that fixes hardcoded paths and auto copies the `browserhax_cfg.php` to the webroot directory and you must configure it yourself, aswell as compiling the 3ds_browserhax_common repo yourself
 - **`update_browserhax_auto.sh`** automatically sets everything up, compiles 3ds_browserhax_common, and uses a predefined configuration file with auto id generation. No extra configuration needed
+- **`update_browserhax_auto_static.sh`**, same as the auto version, but generates static files (no symlinking), allows copying. Access http://example.com/generateqrcode.php to generate the qr code for the page.
 
 ## Requirements
 A GNU/Linux machine (tested on Ubuntu) with the following packages installed:
