@@ -56,7 +56,7 @@ create_symlink browserhax_site/3dsbrowserhax.php 3dsbrowserhax_auto.php
 curl -o $webroot/3dsbrowserhax_auto_qrcode.png -G -s "https://chart.googleapis.com/chart?cht=qr&chs=150x150"  --data-urlencode "chl=$websitebase/3dsbrowserhax_auto.php"
 
 create_symlink 3ds_browserhax_common/3dsbrowserhax_common.php 3dsbrowserhax_common.php
-copy_file 3ds_browserhax_common/browserhax_cfg_example.php browserhax_cfg.php
+
 find $repobase/ -type f -exec sed -i "s#/home/yellows8/browserhax#$webroot#g" {} \;
 
 create_symlink browserhax_fright/browserhax_fright.php browserhax_fright.php
