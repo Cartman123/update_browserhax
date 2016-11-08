@@ -16,6 +16,7 @@ script:
 - ./update_browserhax_auto_static.sh $TRAVIS_BUILD_DIR/repos $TRAVIS_BUILD_DIR/webroot ""
 
 before_deploy:
+- cp -pf generateqrcode.php webroot/
 - export RELEASE_FILENAME=webroot-$TRAVIS_TAG
 - tar -czf $RELEASE_FILENAME.tar.gz webroot/
 
