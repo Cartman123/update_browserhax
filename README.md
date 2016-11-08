@@ -43,7 +43,7 @@ You can create a very simple mirror by running the following line (remember to i
 
 `bash <(curl -s https://raw.githubusercontent.com/Cartman123/update_browserhax/master/update_browserhax_auto.sh) /path/to/repos /path/to/webroot "http://example.com"`
 
-And it's done! The new mirror should be up and running on http://example.com/browserhax.php (the qr code will point you to http://example.com/browserhax_auto.php)
+And it's done! The new mirror should be up and running on http://example.com/3dsbrowserhax.php (the qr code will point you to http://example.com/3dsbrowserhax_auto.php)
 
 ## Extra steps on update_browserhax.sh (NOT NEEDED ON THE auto VERSION!)
 
