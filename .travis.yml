@@ -1,0 +1,32 @@
+language: c
+sudo: false
+python:
+- '3.5'
+
+addons:
+  apt:
+    packages:
+    - gcc-arm-none-eabi
+
+install:
+- mkdir -p webroot
+- mkdir -p repos
+
+script:
+- ./update_browserhax_auto_static.sh $TRAVIS_BUILD_DIR/repos $TRAVIS_BUILD_DIR/webroot ""
+
+before_deploy:
+- export RELEASE_FILENAME=webroot-$TRAVIS_TAG
+- tar -czf $RELEASE_FILENAME.tar.gz webroot/
+
+
+deploy:
+  provider: releases
+  api_key:
+    secure: VVDCmX11YK/WLZg7ieoTxm374ZPyzA9fJn1u6uhdGqlZ3s19YN4B8FP65AE7tU0cKYF17NBERyvdVQ3vvluOjlUSwOH7MbX3SZ9PlEqfOUgiYT9cw2oNYV3qhLECS6YAcaOLYSOZzFZ6bU+LHvz3mqK48LSlNP9HEJES4tnDSiENq6gDT50eLK9ae3C1Pk6SpyfCthGDCZqEiJggp+KsvqRV2mIKDOF0r6/84ggGJZggpS+Xb1tP4k70DqRhN4bxuR5YbEYtvGHo8OFSYqLh53tjfxCasB7BjUiRHkY+eALXMiM2fFL7RRbTNOyIA6clk/HjaGwSeCni3R9Y0RD7xbLvnz0Y/8I6ywn8bZOIrMY82s/XNa33qUcXAIUiGRJeYTIem0hayAxGjDZY4/WtL11hdMvW/dotLdYXpBLLX0yCdy2LjpYbTD2CNr2czWhSiXJPoKrVJd/Vk9i1udnvE9HKCaWF0u8MA4z3dTR0CeWwnabEIVoSpiBvNQWP5QhX2WQU1s3Rfs+0+Dmp52H2HGotvBf8xqsyOR2YQ3lR570FDLuorC5PPpxnx5pC6qZGNCir8/tBe5NQs98xjjfDzhqCp519UGiNol+tIosqaiFFerrlLeSOqIgDjfj4TEBzJcLHKHOXRLVmaTaL7bJUwxzQleWIFD8qIhJpnqHkMIQ=
+  file:
+    - $RELEASE_FILENAME.tar.gz
+  skip_cleanup: true
+  on:
+    tags: true
+    repo: Cartman123/update_browserhax
