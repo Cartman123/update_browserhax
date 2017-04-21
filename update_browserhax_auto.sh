@@ -17,6 +17,7 @@ fi
 repobase=$1
 webroot=$2
 websitebase=$3
+yellows8="/home/yellows8/browserhax"
 
 newid=$(date +%s | sha256sum | base64 | head -c 32)
 
@@ -105,6 +106,12 @@ if [ ! -e "$webroot/browserhax_cfg.php" ]; then
 	curl -s -o $webroot/browserhax_cfg.php https://raw.githubusercontent.com/Cartman123/update_browserhax/master/browserhax_cfg.php
 	sed -i "s/<someid>/$newid/g" $webroot/browserhax_cfg.php
 fi
+
+sed -i "s#$yellows8#$webroot#g" $webroot/browserhax_fright.php
+sed -i "s#$yellows8#$webroot#g" $webroot/browserhax_fright_tx3g.php
+sed -i "s#$yellows8#$webroot#g" $webroot/skater31hax.php
+sed -i "s#$yellows8#$webroot#g" $webroot/spider31hax.php
+sed -i "s#$yellows8#$webroot#g" $webroot/spider28hax.php
 
 mkdir -p $webroot/payloads
 rm -f $webroot/payloads/3ds_arm11code.bin
